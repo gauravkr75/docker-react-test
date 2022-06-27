@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build:
+      context: . # Build the image using the contents of the current directory
+      dockerfile: Dockerfile.dev # When we cahnge the default name of Docker file
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app # Map the containers /app folder to the current directory's folder
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "test"]
